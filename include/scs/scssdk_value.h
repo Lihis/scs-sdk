@@ -24,7 +24,8 @@ const scs_value_type_t SCS_VALUE_TYPE_euler             = 9;
 const scs_value_type_t SCS_VALUE_TYPE_fplacement        = 10;
 const scs_value_type_t SCS_VALUE_TYPE_dplacement        = 11;
 const scs_value_type_t SCS_VALUE_TYPE_string            = 12;
-const scs_value_type_t SCS_VALUE_TYPE_LAST              = SCS_VALUE_TYPE_string;
+const scs_value_type_t SCS_VALUE_TYPE_s64               = 13;
+const scs_value_type_t SCS_VALUE_TYPE_LAST              = SCS_VALUE_TYPE_s64;
 
 /**
  * @name Simple data types.
@@ -48,6 +49,11 @@ struct scs_value_u32_t
 struct scs_value_u64_t
 {
         scs_u64_t value;
+};
+
+struct scs_value_s64_t
+{
+        scs_s64_t value;
 };
 
 struct scs_value_float_t
@@ -175,6 +181,7 @@ struct scs_value_t
                 scs_value_s32_t         value_s32;
                 scs_value_u32_t         value_u32;
                 scs_value_u64_t         value_u64;
+                scs_value_s64_t         value_s64;
                 scs_value_float_t       value_float;
                 scs_value_double_t      value_double;
                 scs_value_fvector_t     value_fvector;
@@ -189,6 +196,7 @@ struct scs_value_t
 scs_check_size(scs_value_s32_t, 4, 4);
 scs_check_size(scs_value_u32_t, 4, 4);
 scs_check_size(scs_value_u64_t, 8, 8);
+scs_check_size(scs_value_s64_t, 8, 8);
 scs_check_size(scs_value_float_t, 4, 4);
 scs_check_size(scs_value_double_t, 8, 8);
 scs_check_size(scs_value_fvector_t, 12, 12);

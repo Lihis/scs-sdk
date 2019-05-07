@@ -66,9 +66,16 @@ const scs_event_t SCS_TELEMETRY_EVENT_started      = 4;
  * in the configuration info, it must register for this event
  * during its initialization call to ensure that it does
  * not miss it. Future changes in configuration are
- * delivered as described in the event sequence bellow.
+ * delivered as described in the event sequence below.
  */
 const scs_event_t SCS_TELEMETRY_EVENT_configuration = 5;
+
+/**
+ * @brief An event called when a gameplay event such as job finish happens.
+ *
+ * The event_info parameter for this event points to scs_telemetry_gameplay_event_t structure.
+ */
+const scs_event_t SCS_TELEMETRY_EVENT_gameplay     = 6;
 
 //@}
 
@@ -77,7 +84,8 @@ const scs_event_t SCS_TELEMETRY_EVENT_configuration = 5;
 // @li Optionally one or more CONFIGURATION events if the configuration changed.
 // @li Optionally one from PAUSED or STARTED if there was change since last frame.
 // @li FRAME_START
-// @li Cannel callbacks
+// @li Optionally one or more GAMEPLAY events.
+// @li Channel callbacks
 // @li FRAME_END
 
 /**
@@ -150,7 +158,7 @@ struct scs_telemetry_configuration_t
          *
          * The array is terminated by entry whose name pointer is set to NULL.
          *
-         * Names of the attributes are the SCS_TELEMETRY_ATTRIBUTE_ID_* constants
+         * Names of the attributes are the SCS_TELEMETRY_CONFIG_ATTRIBUTE_* constants
          * for the game in question.
          *
          * This pointer will be never NULL.
@@ -159,6 +167,33 @@ struct scs_telemetry_configuration_t
 };
 
 scs_check_size(scs_telemetry_configuration_t, 8, 16);
+
+/**
+ * @brief Parameters for the SCS_TELEMETRY_EVENT_gameplay event callback.
+ */
+struct scs_telemetry_gameplay_event_t
+{
+        /**
+         * @brief The event id.
+         *
+         * The event ID name - check SCS_TELEMETRY_GAMEPLAY_EVENT_* for possible names.
+         */
+        scs_string_t             id;
+
+        /**
+         * @brief Array of individual attributes.
+         *
+         * The array is terminated by entry whose name pointer is set to NULL.
+         *
+         * Names of the attributes are the SCS_TELEMETRY_GAMEPLAY_EVENT_ATTRIBUTE_* constants
+         * for the game in question.
+         *
+         * This pointer will be never NULL.
+         */
+        const scs_named_value_t *attributes;
+};
+
+scs_check_size(scs_telemetry_gameplay_event_t, 8, 16);
 
 /**
  * @brief Type of function registered to be called for event.

@@ -11,6 +11,8 @@
 #include "../common/scssdk_telemetry_common_channels.h"
 #include "../common/scssdk_telemetry_truck_common_channels.h"
 #include "../common/scssdk_telemetry_trailer_common_channels.h"
+#include "../common/scssdk_telemetry_job_common_channels.h"
+#include "../common/scssdk_telemetry_common_gameplay_events.h"
 
 SCSSDK_HEADER
 
@@ -39,13 +41,15 @@ SCSSDK_HEADER
  * 1.09 - added time and job related info
  * 1.10 - added information about liftable axes
  * 1.11 - u32 channels can provide u64 as documented, added displayed_gear channel, increased
- *        maximal number of supported wheel channels to 14
+ *        maximum number of supported wheel channels to 14
  * 1.12 - added information about transmission (differential_ratio, forward_ratio, reverse_ratio),
  *        navigation channels (navigation_distance, navigation_time, navigation_speed_limit)
  *        and adblue related data are now provided.
  * 1.13 - fixed values of id and cargo_accessory_id attributes in trailer config broken by
  *        ETS2 1.25 update. Note that the new values will be different from the ones returned
  *        by ETS2 1.24 and older.
+ * 1.14 - added support for multiple trailers (doubles, triples), trailer ownership support,
+ *        gameplay events support added
  */
 //@{
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_00            SCS_MAKE_VERSION(1, 0)
@@ -62,7 +66,8 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_11            SCS_MAKE_VERSION(1, 11)
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_12            SCS_MAKE_VERSION(1, 12) // Patch 1.17
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_13            SCS_MAKE_VERSION(1, 13) // Patch 1.27
-#define SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT         SCS_TELEMETRY_EUT2_GAME_VERSION_1_13
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_14            SCS_MAKE_VERSION(1, 14) // Patch 1.35
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT         SCS_TELEMETRY_EUT2_GAME_VERSION_1_14
 //@}
 
 // Game specific units.
@@ -71,6 +76,7 @@ SCSSDK_HEADER
 //     by the telemetry unless documented otherwise.
 
 // Channels defined in scssdk_telemetry_common_channels.h,
+// scssdk_telemetry_job_common_channels.h,
 // scssdk_telemetry_truck_common_channels.h and
 // scssdk_telemetry_trailer_common_channels.h are supported
 // with following exceptions and limitations as of v1.00:

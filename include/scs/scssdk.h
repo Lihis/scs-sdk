@@ -20,6 +20,7 @@ typedef unsigned __int16        scs_u16_t;
 typedef signed __int32          scs_s32_t;
 typedef unsigned __int32        scs_u32_t;
 typedef unsigned __int64        scs_u64_t;
+typedef signed __int64          scs_s64_t;
 typedef float                   scs_float_t;
 typedef double                  scs_double_t;
 typedef const char *            scs_string_t;
@@ -32,6 +33,7 @@ typedef const char *            scs_string_t;
 #endif
 
 #define SCS_PF_U64 "I64u"
+#define SCS_PF_S64 "I64d"
 
 #elif defined(__GNUG__)
 
@@ -41,6 +43,7 @@ typedef uint16_t                scs_u16_t;
 typedef int32_t                 scs_s32_t;
 typedef uint32_t                scs_u32_t;
 typedef uint64_t                scs_u64_t;
+typedef int64_t                 scs_s64_t;
 typedef float                   scs_float_t;
 typedef double                  scs_double_t;
 typedef const char *            scs_string_t;
@@ -49,9 +52,11 @@ typedef const char *            scs_string_t;
 #if defined(__x86_64__)
 #define SCS_ARCHITECTURE_x64
 #define SCS_PF_U64 "lu"
+#define SCS_PF_S64 "ld"
 #elif defined(__i386__)
 #define SCS_ARCHITECTURE_x86
 #define SCS_PF_U64 "llu"
+#define SCS_PF_S64 "lld"
 #else
 #error "Unknown architecture."
 #endif
@@ -85,7 +90,7 @@ const scs_result_t SCS_RESULT_already_registered        = -3; // There is alread
 const scs_result_t SCS_RESULT_not_found                 = -4; // Specified item (e.g. channel) was not found.
 const scs_result_t SCS_RESULT_unsupported_type          = -5; // Specified value type is not supported (e.g. channel does not provide that value type).
 const scs_result_t SCS_RESULT_not_now                   = -6; // Action (event/callback registration) is not allowed in the current state. Indicates incorrect use of the api.
-const scs_result_t SCS_RESULT_generic_error             = -7; // Error not convered by other existing code.
+const scs_result_t SCS_RESULT_generic_error             = -7; // Error not covered by other existing code.
 
 // Function definition macros.
 

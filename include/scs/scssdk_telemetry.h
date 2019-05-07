@@ -19,10 +19,13 @@ SCSSDK_HEADER
  * Changes in the major version indicate incompatible changes in the API.
  * Changes in the minor version indicate additions (e.g. more events, defined
  * types as long layout of existing fields in scs_value_t does not change).
+ *
+ * 1.01 version - added s64 type support, added gameplay events
  */
 //@{
 #define SCS_TELEMETRY_VERSION_1_00              SCS_MAKE_VERSION(1, 0)
-#define SCS_TELEMETRY_VERSION_CURRENT           SCS_TELEMETRY_VERSION_1_00
+#define SCS_TELEMETRY_VERSION_1_01              SCS_MAKE_VERSION(1, 1)
+#define SCS_TELEMETRY_VERSION_CURRENT           SCS_TELEMETRY_VERSION_1_01
 //@}
 
 // Structures used to pass additional data to the initialization function.
@@ -33,9 +36,8 @@ SCSSDK_HEADER
  */
 struct scs_telemetry_init_params_t
 {
-	void	method_indicating_this_is_not_a_c_struct(void);
+        void    method_indicating_this_is_not_a_c_struct(void);
 };
-
 
 /**
  * @brief Initialization parameters for the 1.00 version of the telemetry API.
@@ -64,6 +66,11 @@ struct scs_telemetry_init_params_v100_t : public scs_telemetry_init_params_t
         //@}
 };
 scs_check_size(scs_telemetry_init_params_v100_t, 32, 64);
+
+/**
+ * @brief Initialization parameters for the 1.01 version of the telemetry API.
+ */
+typedef scs_telemetry_init_params_v100_t scs_telemetry_init_params_v101_t;
 
 // Functions which should be exported by the dynamic library serving as
 // recipient of the telemetry.

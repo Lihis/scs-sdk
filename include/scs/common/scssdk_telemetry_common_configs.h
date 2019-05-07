@@ -16,6 +16,13 @@
 SCSSDK_HEADER
 
 /**
+ * @brief The count of the trailers supported by SDK.
+ *
+ * The maximum number of trailers that can be returned by the telemetry SDK.
+ */
+#define SCS_TELEMETRY_trailers_count                            10
+
+/**
  * @brief Configuration of the substances.
  *
  * Attribute index is index of the substance.
@@ -75,20 +82,38 @@ SCSSDK_HEADER
  * @li cabin_position
  * @li head_position
  * @li hook_position
+ * @li license_plate
+ * @li license_plate_country
+ * @li license_plate_country_id
  * @li wheel_count
  * @li wheel positions for wheel_count wheels
  */
 #define SCS_TELEMETRY_CONFIG_truck                              "truck"
 
 /**
- * @brief Static configuration of the trailer.
+ * @brief Backward compatibility static configuration of the first trailer (attributes are equal to trailer.0).
  *
- * If empty set of attributes is returned, there is no configured trailer.
+ * The trailers configurations are returned using trailer.[index]
+ * (e.g. trailer.0, trailer.1, ... trailer.9 ...)
+ *
+ * SDK currently can return up to @c SCS_TELEMETRY_trailers_count trailers.
+ *
+ * If there are less trailers in game than @c SCS_TELEMETRY_trailers_count
+ * telemetry will return all configurations however starting from the trailer after last
+ * existing one its attributes will be empty. (only one unnamed attribute will be returned)
  *
  * Supported attributes:
  * @li id
  * @li cargo_accessory_id
  * @li hook_position
+ * @li brand_id
+ * @li brand
+ * @li name
+ * @li chain_type
+ * @li body_type
+ * @li license_plate
+ * @li license_plate_country
+ * @li license_plate_country_id
  * @li wheel_count
  * @li wheel offsets for wheel_count wheels
  */
@@ -107,12 +132,15 @@ SCSSDK_HEADER
  * @li destination_city
  * @li source_city_id
  * @li source_city
- * @li destination_company_id
- * @li destination_company
- * @li source_company_id
- * @li source_company
+ * @li destination_company_id (only available for non special transport jobs)
+ * @li destination_company (only available for non special transport jobs)
+ * @li source_company_id (only available for non special transport jobs)
+ * @li source_company (only available for non special transport jobs)
  * @li income - represents expected income for the job without any penalties
  * @li delivery_time
+ * @li is_cargo_loaded
+ * @li job_market
+ * @li special_job
  */
 #define SCS_TELEMETRY_CONFIG_job                                "job"
 
@@ -155,6 +183,45 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_accessory_id       "cargo.accessory.id"
 
 /**
+ * @brief Name of trailer chain type.
+ *
+ * Limited to C-identifier characters and dots.
+ *
+ * Type: string
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_chain_type               "chain.type"
+
+/**
+ * @brief Name of trailer body type.
+ *
+ * Limited to C-identifier characters and dots.
+ *
+ * Type: string
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_body_type               "body.type"
+
+/**
+ * @brief Vehicle license plate.
+ *
+ * Type: string
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_license_plate           "license.plate"
+
+/**
+ * @brief The id representing license plate country.
+ *
+ * Type: string
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_license_plate_country_id "license.plate.country.id"
+
+/**
+ * @brief The name of the license plate country.
+ *
+ * Type: string
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_license_plate_country   "license.plate.country"
+
+/**
  * @brief Name for display purposes.
  *
  * Localized using the current in-game language.
@@ -171,7 +238,7 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_fuel_capacity            "fuel.capacity"
 
 /**
- * @brief Fraction of the fuel capacity bellow which
+ * @brief Fraction of the fuel capacity below which
  * is activated the fuel warning.
  *
  * Type: float
@@ -186,7 +253,7 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_capacity          "adblue.capacity"
 
 /**
- * @brief Fraction of the adblue capacity bellow which
+ * @brief Fraction of the adblue capacity below which
  * is activated the adblue warning.
  *
  * Type: float
@@ -194,7 +261,7 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_adblue_warning_factor     "adblue.warning.factor"
 
 /**
- * @brief Pressure of the air in the tank bellow which
+ * @brief Pressure of the air in the tank below which
  * the warning activates.
  *
  * Type: float
@@ -202,7 +269,7 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_warning     "brake.air.pressure.warning"
 
 /**
- * @brief Pressure of the air in the tank bellow which
+ * @brief Pressure of the air in the tank below which
  * the emergency brakes activate.
  *
  * Type: float
@@ -210,7 +277,7 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_air_pressure_emergency   "brake.air.pressure.emergency"
 
 /**
- * @brief Pressure of the oil bellow which the warning activates.
+ * @brief Pressure of the oil below which the warning activates.
  *
  * Type: float
  */
@@ -224,14 +291,14 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_water_temperature_warning "water.temperature.warning"
 
 /**
- * @brief Voltage of the battery bellow which the warning activates.
+ * @brief Voltage of the battery below which the warning activates.
  *
  * Type: float
  */
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_battery_voltage_warning  "battery.voltage.warning"
 
 /**
- * @brief Maximal rpm value.
+ * @brief Maximum rpm value.
  *
  * Type: float
  */
@@ -431,6 +498,21 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_mass               "cargo.mass"
 
 /**
+ * @brief Mass of the single unit of the cargo in kilograms.
+ *
+ * Type: float
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_unit_mass          "cargo.unit.mass"
+
+/**
+ * @brief How many units of the cargo the job consist of.
+ *
+ * Type: u32
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_cargo_unit_count          "cargo.unit.count"
+
+
+/**
  * @brief Id of the destination city for internal use by code.
  *
  * Limited to C-identifier characters and dots.
@@ -523,6 +605,38 @@ SCSSDK_HEADER
  * Type: u32
  */
 #define SCS_TELEMETRY_CONFIG_ATTRIBUTE_delivery_time            "delivery.time"
+
+
+/**
+ * @brief Is cargo loaded on the trailer?
+ *
+ * For non cargo market jobs this is always true
+ *
+ * Type: bool
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_is_cargo_loaded           "cargo.loaded"
+
+/**
+ * @brief The job market this job is from.
+ *
+ * The value is a string representing the type of the job market.
+ * Possible values:
+ * @li cargo_market
+ * @li quick_job
+ * @li freight_market
+ * @li external_contracts
+ * @li external_market
+ *
+ * Type: string
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_job_market                "job.market"
+
+/**
+ * @brief Flag indicating that the job is special transport job.
+ *
+ * Type: bool
+ */
+#define SCS_TELEMETRY_CONFIG_ATTRIBUTE_special_job              "is.special.job"
 
 SCSSDK_FOOTER
 

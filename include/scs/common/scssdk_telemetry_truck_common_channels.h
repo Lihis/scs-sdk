@@ -214,7 +214,7 @@ SCSSDK_HEADER
  * @brief Brake pedal input as used by the simulation <0;1>
  *
  * Accounts for the press attack curve for digital inputs. Does
- * not contain retarder, parking or motor brake.
+ * not contain retarder, parking or engine brake.
  *
  * Type: float
  */
@@ -270,7 +270,7 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_TRUCK_CHANNEL_parking_brake               "truck.brake.parking"
 
 /**
- * @brief Is the motor brake enabled?
+ * @brief Is the engine brake enabled?
  *
  * Type: bool
  */
@@ -279,7 +279,7 @@ SCSSDK_HEADER
 /**
  * @brief Current level of the retarder.
  *
- * <0;max> where 0 is disabled retarder and max is maximal
+ * <0;max> where 0 is disabled retarder and max is maximum
  * value found in TRUCK configuration.
  *
  * Type: u32
@@ -644,7 +644,7 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_TRUCK_CHANNEL_wheel_on_ground             "truck.wheel.on_ground"
 
 /**
- * @brief Substance bellow the whell.
+ * @brief Substance below the whell.
  *
  * Index of substance as delivered trough SUBSTANCE config.
  *
