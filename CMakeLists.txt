@@ -1,4 +1,4 @@
-project(SCS_SDK VERSION 1.10)
+project(SCS_SDK VERSION 1.11)
 
 set(SDK_SOURCES
     include/scs/scssdk.h
