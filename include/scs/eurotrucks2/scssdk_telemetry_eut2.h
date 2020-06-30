@@ -51,6 +51,7 @@ SCSSDK_HEADER
  * 1.14 - added support for multiple trailers (doubles, triples), trailer ownership support,
  *        gameplay events support added
  * 1.15 - added planned_distance_km to active job info
+ * 1.16 - added support for 'avoid_inspection', 'illegal_border_crossing' and 'hard_shoulder_violation' offence type in 'player.fined' gameplay event
  */
 //@{
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_00            SCS_MAKE_VERSION(1, 0)
@@ -69,7 +70,8 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_13            SCS_MAKE_VERSION(1, 13) // Patch 1.27
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_14            SCS_MAKE_VERSION(1, 14) // Patch 1.35
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_15            SCS_MAKE_VERSION(1, 15) // Patch 1.36
-#define SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT         SCS_TELEMETRY_EUT2_GAME_VERSION_1_15
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_16            SCS_MAKE_VERSION(1, 16) // Patch 1.36
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT         SCS_TELEMETRY_EUT2_GAME_VERSION_1_16
 //@}
 
 // Game specific units.
