@@ -463,6 +463,17 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_TRUCK_CHANNEL_rblinker                    "truck.rblinker"
 
 /**
+ * @brief Are the hazard warning light enabled?
+ *
+ * This represents the logical enable state of the hazard warning.
+ * It it is true as long it is enabled regardless of the physical
+ * enabled state of the light (i.e. it does not blink).
+ *
+ * Type: bool
+ */
+#define SCS_TELEMETRY_TRUCK_CHANNEL_hazard_warning              "truck.hazard.warning"
+
+/**
  * @brief Is the light in the left blinker currently on?
  *
  * Type: bool
@@ -553,6 +564,41 @@ SCSSDK_HEADER
  * Type: float
  */
 #define SCS_TELEMETRY_TRUCK_CHANNEL_dashboard_backlight         "truck.dashboard.backlight"
+
+/**
+ * @brief Is the differential lock enabled?
+ *
+ * Type: bool
+ */
+#define SCS_TELEMETRY_TRUCK_CHANNEL_differential_lock           "truck.differential_lock"
+
+/**
+ * @brief Is the lift axle control set to lifted state?
+ *
+ * Type: bool
+ */
+#define SCS_TELEMETRY_TRUCK_CHANNEL_lift_axle                   "truck.lift_axle"
+
+/**
+ * @brief Is the lift axle indicator lit?
+ *
+ * Type: bool
+ */
+#define SCS_TELEMETRY_TRUCK_CHANNEL_lift_axle_indicator         "truck.lift_axle.indicator"
+
+/**
+ * @brief Is the trailer lift axle control set to lifted state?
+ *
+ * Type: bool
+ */
+#define SCS_TELEMETRY_TRUCK_CHANNEL_trailer_lift_axle           "truck.trailer.lift_axle"
+
+/**
+ * @brief Is the trailer lift axle indicator lit?
+ *
+ * Type: bool
+ */
+#define SCS_TELEMETRY_TRUCK_CHANNEL_trailer_lift_axle_indicator "truck.trailer.lift_axle.indicator"
 
 // Wear info.
 
