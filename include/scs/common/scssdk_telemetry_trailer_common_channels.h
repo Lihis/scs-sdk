@@ -57,6 +57,7 @@ SCSSDK_HEADER
 
 // Damage.
 
+#define SCS_TELEMETRY_TRAILER_CHANNEL_wear_body                         "trailer.wear.body"
 #define SCS_TELEMETRY_TRAILER_CHANNEL_wear_chassis                      "trailer.wear.chassis"
 #define SCS_TELEMETRY_TRAILER_CHANNEL_wear_wheels                       "trailer.wear.wheels"
 

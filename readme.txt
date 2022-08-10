@@ -28,6 +28,8 @@ The APIs are not thread safe. The game calls all functions inside the plugin fro
 
 The general flow is that the plugin's initialization function registers callback functions to be called in various situations and the game the calls them back as necessary. For some APIs it is possible to modify the registrations latter when the game calls one from the callbacks. Check documentation of specific API for more information about relevant limitations.
 
+If more than one API is provided by a plugin, the order in which theirs initialization, shutdown or other callbacks happen is undefined unless explicitly stated otherwise.
+
 ========== Versioning ==========
 
 To provide compatibility with the future changes of the API there is a version negotiation mechanism. The API initialization function in the plugin is provided with suggested version of the API. If it returns SCS_RESULT_unsupported, the game will try next lower version it supports until the initialization succeeds, fails with other return code or until the game runs out of supported API versions.
@@ -37,6 +39,7 @@ The API version number is composed from major and minor components. Major versio
 In addition to the API version, the initialization parameter contains identification of the game and API-specific game version (e.g. there might be one version for telemetry API and different one for some future API). This information is mainly intended to be used to allow customization of the plugin behavior for specific game. As with the APi version there are both major and minor components however there are several differences. There is no negotiation mechanism and the game supports exactly one game version. Removal of telemetry channel is considered a backward compatible change as the plugin is notified about that by failure of the callback registration and can assume default value.
 
 ========== Telemetry API ==========
+
 Telemetry API provides output of various dynamic (e.g. truck speed) or semi-dynamic (e.g. truck parameters) information. Telemetry supports two kinds of callbacks:
 
 -- Events
@@ -46,6 +49,10 @@ Global callbacks called to indicate specific phase of processing (e.g. start/end
 Associated with individual sources of telemetry information (e.g. position, speed, rpm). The callback is called when value in corresponding source is changed or is assumed to be changed (e.g. for some inputs the game assumes that the value is changing most of the time anyway and will not filter the calls). The callback is provided with identification of the channel, its new value and context information specified during callback registration. Some sources can provide the value in more than one format (e.g. as double or float). In that case the callback will receive value in the format specified during callback registration.
 
 Note that the game might contain additional channels and configurations with "dev." prefix which are not documented. They are used for development purposes or contain unrealistic values and might be changed or removed at any time so the plugins should ignore them. If you would need information provided by those objects, please let us know.
+
+========== Input API ==========
+
+Input API provides basic support for adding custom simple input devices to the game without having to use vJoy or similar joystick emulators. It is meant for use cases like additional button boxes and currently does not support dynamic addition and removal of input devices.
 
 ===== Scale ETS2/ATS
 

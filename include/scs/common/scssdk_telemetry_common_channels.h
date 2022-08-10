@@ -33,6 +33,21 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_CHANNEL_game_time                         "game.time"
 
 /**
+ * @brief Offset from the game_time simulated in the local economy to the
+ * game time of the Convoy multiplayer server.
+ *
+ * The value of this channel can change frequently during the Convoy
+ * session. For example when the user enters the desktop, the local
+ * economy time stops however the multiplayer time continues to run
+ * so the value will start to change.
+ *
+ * Represented in in-game minutes. Set to 0 when multiplayer is not active.
+ *
+ * Type: s32
+ */
+#define SCS_TELEMETRY_CHANNEL_multiplayer_time_offset           "multiplayer.time.offset"
+
+/**
  * @brief Time until next rest stop.
  *
  * When the fatique simulation is disabled, the behavior of this channel

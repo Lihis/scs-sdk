@@ -86,7 +86,7 @@ typedef scs_s32_t scs_result_t;
 const scs_result_t SCS_RESULT_ok                        =  0; // Operation succeeded.
 const scs_result_t SCS_RESULT_unsupported               = -1; // Operation or specified parameters are not supported. (e.g. the plugin does not support the requested version of the API)
 const scs_result_t SCS_RESULT_invalid_parameter         = -2; // Specified parameter is not valid (e.g. null value of callback, invalid combination of flags).
-const scs_result_t SCS_RESULT_already_registered        = -3; // There is already a registered callback for the specified function (e.g. event/channel).
+const scs_result_t SCS_RESULT_already_registered        = -3; // There is already a registered conflicting object (e.g. callback for the specified event/channel, input device with the same name).
 const scs_result_t SCS_RESULT_not_found                 = -4; // Specified item (e.g. channel) was not found.
 const scs_result_t SCS_RESULT_unsupported_type          = -5; // Specified value type is not supported (e.g. channel does not provide that value type).
 const scs_result_t SCS_RESULT_not_now                   = -6; // Action (event/callback registration) is not allowed in the current state. Indicates incorrect use of the api.

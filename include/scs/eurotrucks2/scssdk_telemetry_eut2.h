@@ -53,6 +53,7 @@ SCSSDK_HEADER
  * 1.15 - added planned_distance_km to active job info
  * 1.16 - added support for 'avoid_inspection', 'illegal_border_crossing' and 'hard_shoulder_violation' offence type in 'player.fined' gameplay event
  * 1.17 - added differential lock, lift axle and hazard warning channels
+ * 1.18 - added multiplayer time offset and trailer body wear channel, fixed trailer chassis wear channel
  */
 //@{
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_00            SCS_MAKE_VERSION(1, 0)
@@ -73,7 +74,8 @@ SCSSDK_HEADER
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_15            SCS_MAKE_VERSION(1, 15) // Patch 1.36
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_16            SCS_MAKE_VERSION(1, 16) // Patch 1.36
 #define SCS_TELEMETRY_EUT2_GAME_VERSION_1_17            SCS_MAKE_VERSION(1, 17) // Patch 1.41
-#define SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT         SCS_TELEMETRY_EUT2_GAME_VERSION_1_17
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_1_18            SCS_MAKE_VERSION(1, 18) // Patch 1.45
+#define SCS_TELEMETRY_EUT2_GAME_VERSION_CURRENT         SCS_TELEMETRY_EUT2_GAME_VERSION_1_18
 //@}
 
 // Game specific units.
